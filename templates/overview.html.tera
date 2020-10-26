@@ -1,0 +1,94 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="{{ root }}/static/bootstrap-4.5.2/css/bootstrap.min.css">
+        <title>Anwesenheit Werke</title>
+    </head>
+    <body>
+        <div class="jumbotron text-center" style="margin: 0px; background: rgb(184, 216, 255)">
+            <h1>Anwesenheit Werke</h1>
+        </div>
+        <div class="p-4" style="height: 100%; background:transparent url('{{ root }}/static/RenderAK-X_web.jpg') no-repeat center center /cover">
+            {% if admin %}
+            <div class="card card-good shadow" style="width: 17rem; text-align: center; border-width: thick;">
+                <div class="card-body p-1 text-success">
+                    Vorstandsansicht aktiviert
+                </div>
+            </div>
+            {% endif%}
+            <div class="card card-okay shadow mt-2" style="text-align: center; border-width: thick;">
+                <div class="card-header">Deine Eingetragene Schichten</div>
+                <div class="card-body p-1 text-success">
+                    <table class="table">
+                    <thead>
+                        <tr>
+                        <th scope="col">Von</th>
+                        <th scope="col">Bis</th>
+                        <th scope="col">Kommentar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for p in user_presences %}
+                        <tr style="border-top: 0.15px;">
+                            <td style="padding: 0px; border-top: 0px solid;">{{ p[0] }}</td>
+                            <td style="padding: 0px; border-top: 0px solid;">Ott[</td>
+                            <td style="padding: 0px; border-top: 0px solid;">@mdo</td>
+                        </tr>
+                        {% endfor %}
+                        <tr style="border-top: 0.15px;">
+                            <td style="padding: 0px; border-top: 0px solid; width: 15rem;"><input/></td>
+                            <td style="padding: 0px; border-top: 0px solid; width: 15rem;"><input/></td>
+                            <td style="padding: 0px; border-top: 0px solid;"><input style="width: 100%;"/></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="card card-okay shadow mt-2" style="text-align: center; border-width: thick;">
+                <div class="card-header">Freie Slots in der Werkstatt</div>
+                <div class="card-body p-1 text-success">
+                    <table class="table">
+                    <thead>
+                        <tr>
+                        <th scope="col">Uhrzeit</th>
+                        <th scope="col">Gestern</th>
+                        <th scope="col">Heute</th>
+                        <th scope="col">Morgen</th>
+                        <th scope="col">Übermorgen</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for c in clock_list %}
+                        <tr style="border-top: 0.15px;">
+                            <td style="padding: 0px; border-top: 0px solid;">{{ c }}</td>
+                            <td style="padding: 0px; border-top: 0px solid;">Otto</td>
+                            <td style="padding: 0px; border-top: 0px solid;">@mdo</td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div> 
+    </body>
+</html>
+
+<style>
+.card-good {
+    border-left-color: var(--success);
+    border-top-color: var(--white);
+    border-right-color: var(--white);
+    border-bottom-color: var(--white);
+}
+
+.card-okay {
+    border-left-color: var(--primary);
+    border-top-color: var(--white);
+    border-right-color: var(--white);
+    border-bottom-color: var(--white);
+}
+
+html, body {
+    margin: 0;
+    height: 100%;
+}
+</style>

@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="{{ root }}/static/bootstrap-4.5.2/css/bootstrap.min.css">
+        <script src="{{ root }}/static/jquery-3.5.1.min.js"></script>
+        <title>Anwesenheit Werke</title>
+    </head>
+    <body>
+        <div class="jumbotron text-center" style="margin: 0px; background: rgb(184, 216, 255)">
+            <h1 class="align-middle">Anwesenheit Werke</h1>
+            <h2>Login</h2>
+        </div>
+        <div style="height: 100%; background:transparent url('{{ root }}/static/RenderAK-X_web.jpg') no-repeat center center /cover">
+            <br>
+            <br>
+            <form action="javascript:login()" method="post" class="container justify-content-center text-justify font-weight-bold text-white h5" style="max-width: 400px">
+                <div class="form-group">
+                    <label for="usr" style="text-shadow: 0px 0px 8px #000000;">Token</label>
+                    <input type="text" class="form-control w-40" name="token" id="token">
+                </div>
+                <input type="submit" class="btn btn-primary" value="Login">
+                <div class="text-warning mt-3" style="display: none; text-shadow: 0px 0px 8px #000000;" id="errordiv">Error</div>
+            </form> 
+        </div> 
+    </body>
+</html>
+
+<script>
+    function errorMessage(message) {
+        let errorDiv = document.getElementById("errordiv");
+        console.log(errorDiv);
+        errorDiv.style.display = "block";
+        errorDiv.innerText = message;
+    }
+    function login() {
+        console.log("trying login");
+        tokenDiv = document.getElementById("token")
+        data = {"token": tokenDiv.value}
+        $.ajax({
+            method: "POST",
+            contentType: 'application/json',
+            url: "{{ root }}/api/validate_token",
+            data: JSON.stringify(data),
+            success: function (response) {
+                if (response.valid) {
+                var d = new Date();
+                d.setTime(d.getTime() + (30 * 24 * 60 * 60 * 1000));  // 30 days from now
+                var expires = "expires="+ d.toUTCString();
+                    document.cookie = "corona-presence-token=" + data.token + "; " + expires; 
+                    window.location.href = "overview";  // redirect
+                } else {
+                    errorMessage("Der Token " + data.token + " scheint invalid zu sein.");
+                }
+            },
+            error: function () {
+                errorMessage("Verbindung zum Server verloren");
+            },
+        });
+    }
+</script>
+
+<style>
+html, body {
+    margin: 0;
+    height: 100%;
+}
+</style>

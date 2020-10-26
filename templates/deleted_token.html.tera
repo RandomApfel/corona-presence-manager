@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="/static/bootstrap-4.5.2/css/bootstrap.min.css">
+        <title>Anwesenheit Werke</title>
+    </head>
+    <body>
+        <div class="jumbotron text-center" style="margin: 0px; background: rgb(184, 216, 255)">
+            <h1>Anwesenheit Werke</h1>
+            <h2>Fehler</h2>
+        </div>
+        <div style="height: 100%; background:transparent url('/static/RenderAK-X_web.jpg') no-repeat center center /cover">
+            <br>
+            <br>
+            <div class="bg-danger">{{ error_message }}</div>
+            <div class="button" href="{{ button_link }}">{{ button_text }}</div>
+        </div> 
+    </body>
+</html>
+
+<script>
+function delete_token() {
+    $.removeCookie('corona-presence-token', { path: '/' });
+}
+{% if delete_cookie == "true" %}
+delete_token()
+{% endif %}
+</script>
+
+<style>
+html, body {
+    margin: 0;
+    height: 100%;
+}
+</style>
